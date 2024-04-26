@@ -1,0 +1,14 @@
+.btnJav:disabled {
+    background-color: rgb(230, 230, 230);
+    border-radius: 20px;
+    color: #aaa;
+    border: none;
+}
+
+.btnJav {
+    background-color: #FE628E;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+}
