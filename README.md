@@ -1,9 +1,10 @@
 ### 把Jav网站连接起来！
 一个chrome插件
-#### 当前版本功能
-- 给Javbus加上快捷播放按钮，直达Jable, Njav, Missav
+#### 功能
+- 给JavBus, JavLibrary加上快捷播放按钮
   <p>
-    <img width="35%" src="screenshot.png" >
+    <img width="35%" src="./pics/screenshot_javbus.png" >
+    <img width="35%" src="./pics/screenshot_javlibrary.png" >
   </p>
 
 

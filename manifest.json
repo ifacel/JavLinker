@@ -9,6 +9,10 @@
     "content_scripts": [
         {
             "js": [
+                "scripts/platforms.js",
+                "scripts/fetch.js",
+                "scripts/javbus.js",
+                "scripts/javlibrary.js",
                 "scripts/content.js"
             ],
             "css":[
@@ -16,7 +20,8 @@
             ],
             "matches": [
                 "https://www.javbus.com/*",
-                "https://www.seejav.me/*"
+                "https://www.seejav.me/*",
+                "https://www.javlibrary.com/*"
             ]
         }
     ],

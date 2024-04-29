@@ -7,7 +7,7 @@ chrome.runtime.onMessage.addListener(
                 sendResponse({ status:res.status, text: res.text})
             })
             .catch(error => {
-                console.error(error);
+                console.error( error + ": " + request.url);
                 sendResponse({ error })
             })
         }
