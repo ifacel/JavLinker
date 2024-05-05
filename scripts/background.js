@@ -1,4 +1,10 @@
-chrome.runtime.onMessage.addListener(
+if (navigator.userAgent.includes('Chrome')) {
+    var browserHolder = chrome
+}else if (navigator.userAgent.includes('Firefox')) {
+    var browserHolder = browser
+}
+console.log(browserHolder);
+browserHolder.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.type === "fetch") {
             fetch(request.url)

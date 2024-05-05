@@ -1,12 +1,12 @@
-Network = {
+class NetworkImpl {
     /**
      * 
      * @param {*} url 
      * @returns {Promise<FetchResult>}
      */
-    fetch: function fetchUrl(url) {
+    fetch(url) {
         return new Promise((resolve, reject) => {
-            chrome.runtime.sendMessage(
+            browserHolder.runtime.sendMessage(
                 {
                     type: "fetch",
                     url,
@@ -30,3 +30,4 @@ class FetchResult {
     }
 }
 
+var Network = new NetworkImpl();
