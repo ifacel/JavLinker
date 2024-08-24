@@ -1,5 +1,5 @@
 class JavLibrary {
-    hosts = ["www.javlibrary.com"]
+    hosts = ["www.javlibrary.com","www.y78k.com"]
     infoElement = document.querySelector('#video_info');
 
     match = function () {

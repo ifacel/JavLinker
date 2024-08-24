@@ -13,3 +13,8 @@
 2. 打开[扩展程序页面](chrome://extensions/)
 3. 右上角勾选开发者模式
 4. 加载已解压的扩展程序 -> 选择文件夹
+
+#### 开发引导
+1. 支持新的网址
+   需要在manifest.json中content_scripts.matches添加网址匹配
+   
