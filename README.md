@@ -16,5 +16,10 @@
 
 #### 开发引导
 1. 支持新的网址
-   需要在manifest.json中content_scripts.matches添加网址匹配
-   
+   manifest.json
+    content_scripts 包含新文件
+    jsoncontent_scripts
+      matches 添加网址匹配
+    
+  content.js 
+    javHolders 数组中添加新类

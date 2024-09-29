@@ -14,6 +14,7 @@
                 "scripts/network.js",
                 "scripts/javbus.js",
                 "scripts/javlibrary.js",
+                "scripts/javdb.js",
                 "scripts/content.js"
             ],
             "css": [
@@ -23,10 +24,14 @@
                 "https://www.javbus.com/*",
                 "https://www.seejav.me/*",
                 "https://www.javlibrary.com/*",
-                "https://www.y78k.com/*"
+                "https://www.y78k.com/*",
+                "https://javdb.com/v/*"
             ]
         }
     ],
+    "permissions": [
+        "cookies"
+      ],    
     "host_permissions": [
         "https://*/"
     ],
