@@ -38,10 +38,10 @@ class Jable extends PlayerPlatform {
 }
 
 class Njav extends PlayerPlatform {
-    name = "Njav"
+    name = "123av"
     enable = true
     formatUrl(id) {
-        return [`https://njav.tv/zh/v/${id}`]
+        return [`https://123av.com/zh/v/${id}`]
     }
 }
 

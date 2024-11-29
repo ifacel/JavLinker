@@ -3,7 +3,6 @@ if (navigator.userAgent.includes('Chrome')) {
 }else if (navigator.userAgent.includes('Firefox')) {
     var browserHolder = browser
 }
-// chrome.cookies.get({url:"https://njav.tv/",name:"session"},(cookie)=>{console.log(cookie)})
 browserHolder.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.type === "fetch") {
