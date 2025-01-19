@@ -1,3 +1,5 @@
+const parser = new DOMParser()
+
 class PlayerPlatform {
     name
     enable
@@ -32,6 +34,25 @@ class PlayerPlatform {
 class Jable extends PlayerPlatform {
     name = "Jable"
     enable = true
+    searchUrl = "https://jable.tv/search/"
+    async getUrl(id) {
+        let url = this.searchUrl + id + "/"
+        let response = (await Network.fetch(url)).text
+        let document = parser.parseFromString(response, "text/html")
+        let items = document.querySelectorAll(".video-img-box")
+        let item
+        for(let t of items){           
+            if(t.querySelector(".title").querySelector("a").innerText.indexOf(id)!=-1){
+                item = t
+                break
+            }
+        }
+        if (!item) {
+            return null
+        }
+        else return item.querySelector(".title").querySelector("a").href
+        
+    }
     formatUrl(id) {
         return [`https://jable.tv/videos/${id}/`, `https://jable.tv/videos/${id}-c/`]
     }
@@ -40,7 +61,6 @@ class Jable extends PlayerPlatform {
 class P123av extends PlayerPlatform {
     name = "123av"
     enable = true
-    parser = new DOMParser()
     formatUrl(id) {
         return [`https://123av.com/zh/search?keyword=${id}`]
     }
@@ -48,7 +68,7 @@ class P123av extends PlayerPlatform {
         let urls = this.formatUrl(id)
         let url = urls[0]
         let response = (await Network.fetch(url)).text
-        let document = this.parser.parseFromString(response, "text/html")
+        let document = parser.parseFromString(response, "text/html")
         let thumbs = document.querySelectorAll(".thumb")
         let thumb
         for (let t of thumbs) {
