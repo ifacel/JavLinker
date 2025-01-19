@@ -41,12 +41,15 @@ class JavDb{
             btn.className = "btnJav"
             a.appendChild(btn);
             btnsContainer.appendChild(a);
-            let url = await platform.getUrl(this.videoInfo.id)
-            if (url) {
+            let result = await platform.getUrl(this.videoInfo.id)
+            if (result instanceof Ok) {
                 btn.disabled = false
-                a.href = url;
-            } else {
+                a.href = result.data;
+            } else if (result instanceof Error){
                 btn.style.color = "red"
+                btn.title = result.message
+            }else{
+                console.log("what type?" + result);
             }
         })
     }

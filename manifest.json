@@ -15,7 +15,8 @@
                 "scripts/javbus.js",
                 "scripts/javlibrary.js",
                 "scripts/javdb.js",
-                "scripts/content.js"
+                "scripts/content.js",
+                "scripts/result.js"
             ],
             "css": [
                 "css/jav_linker.css"
@@ -26,7 +27,8 @@
                 "https://www.javlibrary.com/*",
                 "https://www.y78k.com/*",
                 "https://javdb.com/v/*"
-            ]
+            ],
+            "type": "module" 
         }
     ],
     "permissions": [
