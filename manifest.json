@@ -9,14 +9,23 @@
     "content_scripts": [
         {
             "js": [
-                "scripts/browser_init.js",
-                "scripts/platforms.js",
-                "scripts/network.js",
-                "scripts/javbus.js",
-                "scripts/javlibrary.js",
-                "scripts/javdb.js",
-                "scripts/content.js",
-                "scripts/result.js"
+                "scripts/tools/browser_init.js",
+                "scripts/tools/result.js",
+                "scripts/tools/network.js",
+                "scripts/tools/cookies.js",
+                
+                "scripts/providers/provider.js",
+                "scripts/providers/123av.js",
+                "scripts/providers/jable.js",
+                "scripts/providers/missav/missav-app.js",
+                "scripts/providers/missav.js",
+                "scripts/providers/providers.js",
+                
+                "scripts/platforms/javbus.js",
+                "scripts/platforms/javlibrary.js",
+                "scripts/platforms/javdb.js",
+
+                "scripts/content.js"
             ],
             "css": [
                 "css/jav_linker.css"

@@ -5,7 +5,6 @@ class JavDb{
     videoInfo = {};
 
     match = function () {
-        console.info("hello match")
         return this.hosts.includes(document.location.host)
     }
 
@@ -30,18 +29,17 @@ class JavDb{
         let btnsContainer = document.createElement('p');
 
         value.appendChild(btnsContainer);
-        let platforms = playerPlatforms.filter(p => p.enable)
-        platforms.forEach(async (platform, index) => {
+        playerProvicers.forEach(async (provider, index) => {
             let a = document.createElement('a');
             a.target = "_blank"
             let btn = document.createElement('button');
-            btn.innerText = platform.name;
+            btn.innerText = provider.name;
             btn.style.cssText = index === 0 ? "margin:0 5px 0 0" : "margin:0 5px;"
             btn.disabled = true
             btn.className = "btnJav"
             a.appendChild(btn);
             btnsContainer.appendChild(a);
-            let result = await platform.getUrl(this.videoInfo.id)
+            let result = await provider.getUrl(this.videoInfo.id)
             if (result instanceof Ok) {
                 btn.disabled = false
                 a.href = result.data;
@@ -49,7 +47,7 @@ class JavDb{
                 btn.style.color = "red"
                 btn.title = result.message
             }else{
-                console.log("what type?" + result);
+                btn.title = ("发生错误：" + result)
             }
         })
     }

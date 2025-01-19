@@ -30,4 +30,4 @@ class FetchResult {
     }
 }
 
-var Network = new NetworkImpl();
+const Network = new NetworkImpl();
