@@ -14,3 +14,15 @@
     padding: 6px 14px;
     cursor: pointer;
 }
+
+.tooltipJav {
+    display: none;
+    position: absolute;
+    background-color: #FE628E;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 16px;
+    z-index: 9999;
+    transform: translateY(-200%);
+    opacity: 0.8
+}

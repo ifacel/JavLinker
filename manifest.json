@@ -21,6 +21,7 @@
                 "scripts/providers/missav.js",
                 "scripts/providers/providers.js",
                 
+                "scripts/platforms/platform.js",
                 "scripts/platforms/javbus.js",
                 "scripts/platforms/javlibrary.js",
                 "scripts/platforms/javdb.js",

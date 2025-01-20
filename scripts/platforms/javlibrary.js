@@ -1,12 +1,11 @@
-class JavLibrary {
+class JavLibrary extends Platform {
     hosts = ["www.javlibrary.com","www.y78k.com"]
     infoElement = document.querySelector('#video_info');
+    videoInfo = {};
 
     match = function () {
         return this.hosts.includes(document.location.host)
     }
-
-    videoInfo = {};
 
     getInfo() {
         const id = this.infoElement.querySelector("#video_id").querySelector(".text").textContent.trim();
@@ -32,9 +31,7 @@ class JavLibrary {
         table.appendChild(tbody)
         video_players.appendChild(table)
         this.infoElement.appendChild(video_players)
-
-
-        playerProvicers.forEach(async (provider, index) => {
+        playerProviders.forEach(async (provider, index) => {
             let a = document.createElement('a');
             a.target = "_blank"
             let btn = document.createElement('button');
@@ -44,26 +41,10 @@ class JavLibrary {
             btn.className = "btnJav"
             a.appendChild(btn);
             btnsContainer.appendChild(a);
-            let url = await provider.getUrl(this.videoInfo.id)
-            if (url) {
-                btn.disabled = false
-                a.href = url;
-            } else {
-                btn.style.color = "red"
-            }
+            let result = await provider.getUrl(this.videoInfo.id)
+            super.handleResult(result,a,btn)
         })
     }
-
-    execute() {
-        if (this.infoElement) {
-            this.getInfo();
-            if (!this.videoInfo.id) {
-                return
-            }
-            this.addButtons();
-        }
-    }
-
 }
 
 

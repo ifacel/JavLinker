@@ -1,9 +1,9 @@
-javHolders = [
+const platforms = [
     new JavBus(),
     new JavLibrary(),
     new JavDb(),
 ]
-holder = javHolders.find(it => it.match())
+holder = platforms.find(it => it.match())
 
 if (holder) {
     holder.execute()

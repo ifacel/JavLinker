@@ -1,4 +1,4 @@
-const playerProvicers = [
+const playerProviders = [
     new Jable(),
     new P123av(),
     new Missav(),

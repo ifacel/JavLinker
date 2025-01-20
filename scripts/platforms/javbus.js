@@ -1,14 +1,11 @@
-class JavBus {
-    constructor() { }
+class JavBus extends Platform {
     hosts = ["www.javbus.com", "www.seejav.me"]
-
     infoElement = document.querySelector('.info');
+    videoInfo = {};
 
     match = function () {
         return this.hosts.includes(document.location.host)
     }
-
-    videoInfo = {};
 
     getInfo() {
         const p = this.infoElement.firstElementChild;
@@ -23,11 +20,11 @@ class JavBus {
         header.setAttribute("class", "header")
         this.infoElement.appendChild(header);
         let btnsContainer = document.createElement('p');
-
         this.infoElement.appendChild(btnsContainer);
-        playerProvicers.forEach(async (provider, index) => {
+        playerProviders.forEach(async (provider, index) => {
             let a = document.createElement('a');
             a.target = "_blank"
+            a.rel="noopener noreferrer"
             let btn = document.createElement('button');
             btn.innerText = provider.name;
             btn.style.cssText = index === 0 ? "margin:0 5px 0 0" : "margin:0 5px;"
@@ -35,22 +32,8 @@ class JavBus {
             btn.className = "btnJav"
             a.appendChild(btn);
             btnsContainer.appendChild(a);
-            let url = await provider.getUrl(this.videoInfo.id)
-            if (url) {
-                btn.disabled = false
-                a.href = url;
-            } else {
-                btn.style.color = "red"
-            }
+            let result = await provider.getUrl(this.videoInfo.id)
+            super.handleResult(result,a,btn)
         })
-    }
-    execute() {
-        if (this.infoElement) {
-            this.getInfo();
-            if (!this.videoInfo.id) {
-                return
-            }
-            this.addButtons();
-        }
     }
 }

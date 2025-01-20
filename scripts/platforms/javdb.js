@@ -1,5 +1,4 @@
-class JavDb{
-
+class JavDb extends Platform{
     hosts = ["javdb.com"]
     infoElement = document.querySelector('.movie-panel-info');
     videoInfo = {};
@@ -25,11 +24,9 @@ class JavDb{
         div.appendChild(title);
         div.appendChild(value);
         this.infoElement.appendChild(div);
-        
         let btnsContainer = document.createElement('p');
-
         value.appendChild(btnsContainer);
-        playerProvicers.forEach(async (provider, index) => {
+        playerProviders.forEach(async (provider, index) => {
             let a = document.createElement('a');
             a.target = "_blank"
             let btn = document.createElement('button');
@@ -40,25 +37,7 @@ class JavDb{
             a.appendChild(btn);
             btnsContainer.appendChild(a);
             let result = await provider.getUrl(this.videoInfo.id)
-            if (result instanceof Ok) {
-                btn.disabled = false
-                a.href = result.data;
-            } else if (result instanceof Error){
-                btn.style.color = "red"
-                btn.title = result.message
-            }else{
-                btn.title = ("发生错误：" + result)
-            }
+            super.handleResult(result,a,btn)
         })
-    }
-
-    execute() {
-        if (this.infoElement) {
-            this.getInfo();
-            if (!this.videoInfo.id) {
-                return
-            }
-            this.addButtons();
-        }
-    }
+    }    
 }
