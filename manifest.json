@@ -4,15 +4,17 @@
     "description": "把Jav网站连接起来！",
     "version": "1.0",
     "action": {
-        "default_popup": "hello.html"
+        "default_popup": "popup/settings.html"
     },
     "content_scripts": [
         {
             "js": [
-                "scripts/tools/browser_init.js",
                 "scripts/tools/result.js",
+                "scripts/tools/browser_init.js",
                 "scripts/tools/network.js",
                 "scripts/tools/cookies.js",
+                "scripts/tools/storage.js",
+                "scripts/tools/tabs.js",
                 
                 "scripts/providers/provider.js",
                 "scripts/providers/123av.js",
@@ -42,7 +44,7 @@
         }
     ],
     "permissions": [
-        "cookies"
+        "cookies","storage","tabs"
       ],    
     "host_permissions": [
         "https://*/"

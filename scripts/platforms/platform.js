@@ -1,9 +1,22 @@
 class Platform {
-
+    useNewTab = false
+    constructor() {
+        Storage.getUseNewTab().then((result) => {
+            if (result instanceof Ok) {
+                this.useNewTab = result.data
+            }
+        })
+    }
     handleResult(result, a, btn) {
         if (result instanceof Ok) {
             btn.disabled = false
-            a.href = result.data;
+            if (this.useNewTab) {
+                btn.addEventListener("click", async () => {
+                    Tabs.newTab(result.data)
+                })
+            } else {
+                a.href = result.data
+            }
         } else if (result instanceof Error) {
             btn.style.color = "red"
             let tooltip = document.createElement("span")

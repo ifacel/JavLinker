@@ -19,21 +19,24 @@ browserHolder.runtime.onMessage.addListener(
                 break;
             case "getCookie":
                 new Promise((resolve, reject) => {
-                    chrome.cookies.get({ url: request.url, name: request.name }, function name(cookie) {
+                    browserHolder.cookies.get({ url: request.url, name: request.name }, function name(cookie) {
                         resolve(cookie)
                     })
                 }).then(res => {
                     sendResponse(res)
                 })
-
-                break
+                break;
+            case "newTab":
+                browserHolder.tabs.create({
+                    url: request.url,
+                    active: request.active
+                }, (newTab) => {
+                    sendResponse(newTab)
+                })
             default:
                 break;
         }
         return true // 必须返回true，表示消息处理结束
 
     }
-
-
-
 )
