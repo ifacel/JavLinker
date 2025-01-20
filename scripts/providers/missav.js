@@ -26,10 +26,13 @@ class Missav extends ProviderPlatform {
             return new Error(`请先进入一次${this.name}`)
         }
         try {
-            let result = await MissavApp.recombeeClient.send(new MissavApp.SearchItems(missavUUID, id, 24, this.reuquestData))
+            let result = await MissavApp.recombeeClient.send(new MissavApp.SearchItems(missavUUID, id, 24, this.reuquestData))            
             let item = result.recomms.find((item) => {
                 return item.id.toUpperCase().indexOf(id.toUpperCase()) != -1
             })
+            if (!item) {
+                return new Error(`该平台找不到${id}`)
+            }
             let url = this.baseUrl
             if (item.values.dm == 0) {
                 url += `/cn/${item.id}`
