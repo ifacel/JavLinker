@@ -30,3 +30,19 @@
     left: 50%;
     transform: translate(-50%, -210%);  
 }
+
+.spinner {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border-top-color: #FE628E;
+    animation: spin 1s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

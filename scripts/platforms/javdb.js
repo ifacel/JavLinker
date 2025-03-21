@@ -34,9 +34,14 @@ class JavDb extends Platform{
             btn.style.cssText = index === 0 ? "margin:0 5px 0 0" : "margin:0 5px;"
             btn.disabled = true
             btn.className = "btnJav"
+            let spinner = document.createElement('div')
+            spinner.className = "spinner"
+            spinner.style.cssText = "margin:0 0 0 5px"
+            btn.append(spinner)
             a.appendChild(btn);
             btnsContainer.appendChild(a);
             let result = await provider.getUrl(this.videoInfo.id)
+            spinner.remove()
             super.handleResult(result,a,btn)
         })
     }    

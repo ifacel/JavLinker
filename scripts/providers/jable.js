@@ -25,6 +25,8 @@ class Jable extends ProviderPlatform {
             }
         }
         if (!item) {
+            console.log("jable：item为空");
+            console.log(document);
             return new Error("该平台找不到"+id)
         }
         let href = item.querySelector(".title").querySelector("a").href
