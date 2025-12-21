@@ -31,12 +31,11 @@ class JavLibrary extends Platform {
         table.appendChild(tbody)
         video_players.appendChild(table)
         this.infoElement.appendChild(video_players)
-        playerProviders.forEach(async (provider, index) => {
+        sourceProviders.forEach(async (provider, index) => {
             let a = document.createElement('a');
             a.target = "_blank"
             let btn = document.createElement('button');
             btn.innerText = provider.name;
-            btn.style.cssText = index === 0 ? "margin:0 5px 0 0" : "margin:0 5px;"
             btn.disabled = true
             btn.className = "btnJav"
             let spinner = document.createElement('div')

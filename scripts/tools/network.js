@@ -4,12 +4,13 @@ class NetworkImpl {
      * @param {*} url 
      * @returns {Promise<FetchResult>}
      */
-    fetch(url) {
+    fetch(url,requestInit) {
         return new Promise((resolve, reject) => {
             browserHolder.runtime.sendMessage(
                 {
                     type: "fetch",
                     url,
+                    requestInit
                 },
                 response => {
                     resolve(new FetchResult(response.status, response.text, response.error))

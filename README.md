@@ -16,10 +16,14 @@
 
 #### 开发引导
 1. 支持新的网址
-   manifest.json
+  manifest.json
     content_scripts 包含新文件
-    jsoncontent_scripts
+    content_scripts
       matches 添加网址匹配
     
-  content.js 
-    javHolders 数组中添加新类
+  适配网址：
+    content.js 
+      platforms 数组中添加新类
+  添加数据源：
+    script/providers/providers.js
+      sourceProviders 数组中添加新类

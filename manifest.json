@@ -18,7 +18,10 @@
                 
                 "scripts/providers/provider.js",
                 "scripts/providers/123av.js",
+                "scripts/providers/njav.js",
                 "scripts/providers/jable.js",
+                "scripts/providers/supjav.js",
+                "scripts/providers/japanhub.js",
                 "scripts/providers/missav/missav-app.js",
                 "scripts/providers/missav.js",
                 "scripts/providers/providers.js",
@@ -29,6 +32,7 @@
                 "scripts/platforms/javdb.js",
 
                 "scripts/content.js"
+                
             ],
             "css": [
                 "css/jav_linker.css"
@@ -38,7 +42,10 @@
                 "https://www.seejav.me/*",
                 "https://www.javlibrary.com/*",
                 "https://www.y78k.com/*",
-                "https://javdb.com/v/*"
+                "https://javdb.com/v/*",
+                "https://www.njav.com/*",
+                "https://supjav.com/*",
+                "https://japanhub.net/*"
             ],
             "type": "module" 
         }

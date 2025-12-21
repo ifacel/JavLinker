@@ -10,7 +10,7 @@ class ProviderPlatform {
      * @returns {Promise<Result>}
      */
     async getUrl(id) {
-        let urls = this.formatUrl(id)
+        let urls = this.getSearchUrl(id)
         for (const url of urls) {
             let result
             try {

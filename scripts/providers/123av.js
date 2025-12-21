@@ -1,7 +1,7 @@
 class P123av extends ProviderPlatform {
     name = "123av"
     enable = true
-    formatUrl(id) {
+    getSearchUrl(id) {
         return [`https://123av.com/zh/search?keyword=${id}`]
     }
     /**
@@ -10,7 +10,7 @@ class P123av extends ProviderPlatform {
    * @returns {Promise<Result>}
    */
     async getUrl(id) {
-        let urls = this.formatUrl(id)
+        let urls = this.getSearchUrl(id)
         let url = urls[0]
         let response
         try {
@@ -28,6 +28,7 @@ class P123av extends ProviderPlatform {
             }
         }
         if (!thumb) {
+            console.info(this.name + "：没有找到"+id);
             return new Error("该平台找不到"+id)
         }
         let href = thumb.querySelector('a').href

@@ -3,7 +3,7 @@ missavUUID = null
 
 class Missav extends ProviderPlatform {
     name = "MissAV"
-    enable = true
+    enable = false
     inited = false
     baseUrl = "https://missav.ws"
     reuquestData = {
@@ -26,11 +26,17 @@ class Missav extends ProviderPlatform {
             return new Error(`请先进入一次${this.name}`)
         }
         try {
-            let result = await MissavApp.recombeeClient.send(new MissavApp.SearchItems(missavUUID, id, 24, this.reuquestData))                        
+            let result
+            try {
+                result = await MissavApp.recombeeClient.send(new MissavApp.SearchItems(missavUUID, id, 24, this.reuquestData))
+            } catch (error) {
+                console.info("missav：获取视频失败", error)
+            }
             let item = result.recomms.find((item) => {
-                return item.id.toUpperCase().indexOf(id.toUpperCase()) != -1 && item.values.dm !=null
+                return item.id.toUpperCase().indexOf(id.toUpperCase()) != -1 && item.values.dm != null
             })
             if (!item) {
+                console.info(this.name + "：没有找到" + id);
                 return new Error(`该平台找不到${id}`)
             }
             let url = this.baseUrl
@@ -41,6 +47,7 @@ class Missav extends ProviderPlatform {
             }
             return new Ok(url)
         } catch (error) {
+            console.info("missav：获取视频失败", error)
             return new Error(error.message)
         }
     }

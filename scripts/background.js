@@ -7,13 +7,13 @@ browserHolder.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         switch (request.type) {
             case "fetch":
-                fetch(request.url)
+                fetch(request.url,request.requestInit)
                     .then(async response => ({ status: response.status, text: await response.text() }))
                     .then(res => {
                         sendResponse({ status: res.status, text: res.text })
                     })
                     .catch(error => {
-                        console.error(error + ": " + request.url);
+                        console.info(error + ": " + request.url);
                         sendResponse({ error })
                     })
                 break;

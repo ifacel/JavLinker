@@ -3,8 +3,8 @@ const platforms = [
     new JavLibrary(),
     new JavDb(),
 ]
-holder = platforms.find(it => it.match())
-
-if (holder) {
-    holder.execute()
+p = platforms.find(it => it.match())
+if (p) {
+    console.info("javlinker init")
+    p.execute()
 }

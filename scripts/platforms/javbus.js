@@ -21,13 +21,12 @@ class JavBus extends Platform {
         this.infoElement.appendChild(header);
         let btnsContainer = document.createElement('p');
         this.infoElement.appendChild(btnsContainer);
-        playerProviders.forEach(async (provider, index) => {
+        sourceProviders.forEach(async (provider, index) => {
             let a = document.createElement('a');
             a.target = "_blank"
             a.rel="noopener noreferrer"
             let btn = document.createElement('button');
             btn.innerText = provider.name;
-            btn.style.cssText = index === 0 ? "margin:0 5px 0 0" : "margin:0 5px;"
             btn.disabled = true
             btn.className = "btnJav"
             let spinner = document.createElement('div')
