@@ -28,7 +28,20 @@ class Platform {
             }, () => {
                 tooltip.style.display = "none"
             })
-        } else {
+        } else if (result instanceof UnknownError) {
+            btn.style.color = "purple"
+            let tooltip = document.createElement("span")
+            tooltip.innerText = "发生未知错误：" + result.message
+            tooltip.className = "tooltipJav"
+            btn.appendChild(tooltip)
+            this.setLongClick(btn, () => {
+                tooltip.style.display = "block"
+            }, () => {
+                tooltip.style.display = "none"
+            })
+
+        }
+        else {
             btn.title = ("发生错误：" + result)
             this.setLongClick(btn, () => {
                 alert(result)

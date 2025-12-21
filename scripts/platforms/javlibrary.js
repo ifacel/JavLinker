@@ -1,5 +1,5 @@
 class JavLibrary extends Platform {
-    hosts = ["www.javlibrary.com","www.y78k.com"]
+    hosts = ["www.javlibrary.com", "www.y78k.com"]
     infoElement = document.querySelector('#video_info');
     videoInfo = {};
 
@@ -44,9 +44,15 @@ class JavLibrary extends Platform {
             btn.append(spinner)
             a.appendChild(btn);
             btnsContainer.appendChild(a);
-            let result = await provider.getUrl(this.videoInfo.id)
+            let result
+            try {
+                result = await provider.getUrl(this.videoInfo.id)
+            } catch (error) {
+                result = new UnknownError(error)
+            }
             spinner.remove()
-            super.handleResult(result,a,btn,spinner)
+            super.handleResult(result, a, btn, spinner)
+
         })
     }
 }

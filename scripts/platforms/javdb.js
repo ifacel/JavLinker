@@ -1,4 +1,4 @@
-class JavDb extends Platform{
+class JavDb extends Platform {
     hosts = ["javdb.com"]
     infoElement = document.querySelector('.movie-panel-info');
     videoInfo = {};
@@ -39,9 +39,14 @@ class JavDb extends Platform{
             btn.append(spinner)
             a.appendChild(btn);
             btnsContainer.appendChild(a);
-            let result = await provider.getUrl(this.videoInfo.id)
+            let result
+            try {
+                result = await provider.getUrl(this.videoInfo.id)
+            } catch (error) {
+                result = new UnknownError(error)
+            }
             spinner.remove()
-            super.handleResult(result,a,btn)
+            super.handleResult(result, a, btn)
         })
-    }    
+    }
 }

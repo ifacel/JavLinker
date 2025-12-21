@@ -15,3 +15,11 @@ class Error extends Result {
         this.message = message
     }
 }
+
+class UnknownError extends Result{
+    message
+    constructor(message){
+        super()
+        this.message = message
+    }
+}

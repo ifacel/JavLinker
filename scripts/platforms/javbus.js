@@ -24,7 +24,7 @@ class JavBus extends Platform {
         sourceProviders.forEach(async (provider, index) => {
             let a = document.createElement('a');
             a.target = "_blank"
-            a.rel="noopener noreferrer"
+            a.rel = "noopener noreferrer"
             let btn = document.createElement('button');
             btn.innerText = provider.name;
             btn.disabled = true
@@ -35,9 +35,14 @@ class JavBus extends Platform {
             btn.append(spinner)
             a.appendChild(btn);
             btnsContainer.appendChild(a);
-            let result = await provider.getUrl(this.videoInfo.id)
+            let result
+            try {
+                result = await provider.getUrl(this.videoInfo.id)
+            } catch (error) {
+                result = new UnknownError(error)
+            }
             spinner.remove()
-            super.handleResult(result,a,btn)
+            super.handleResult(result, a, btn)
         })
     }
 }
