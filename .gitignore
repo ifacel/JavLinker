@@ -1,0 +1,5 @@
+dist_firefox/
+dist_chrome/
+release/
+node_modules/
+JavLinker.pem
