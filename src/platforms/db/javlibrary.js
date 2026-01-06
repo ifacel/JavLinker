@@ -18,18 +18,22 @@ export class JavLibrary extends Platform {
     }
 
     applyPlugin() {
-        let div = document.createElement('div');
-        div.setAttribute("class", "panel-block")
-        div.style.display = "inline-flex"
-
-        let value = document.createElement('span');
-        value.setAttribute("class", "value")
-        div.appendChild(value);
-        let infoElement = document.querySelector('.col .mt-3');
-        infoElement.appendChild(div);
-        let btnsContainer = document.createElement('p');
-
-        value.appendChild(btnsContainer);
+        let video_players = document.createElement('div')
+        video_players.id = "video_players"
+        let table = document.createElement('table')
+        let tbody = document.createElement('tbody')
+        let tr = document.createElement('tr')
+        let header = document.createElement('td')
+        header.className = "header"
+        header.innerHTML = "播放链接:"
+        let btnsContainer = document.createElement('td')
+        btnsContainer.className = "text"
+        tr.appendChild(header)
+        tr.appendChild(btnsContainer)
+        tbody.appendChild(tr)
+        table.appendChild(tbody)
+        video_players.appendChild(table)
+        this.infoElement.appendChild(video_players)
         playerProviders.forEach(async (provider, index) => {
             let a = document.createElement('a');
             a.target = "_blank"
@@ -37,7 +41,6 @@ export class JavLibrary extends Platform {
             btn.innerText = provider.name;
             btn.disabled = true
             btn.className = "btnJav"
-            btn.style.marginBottom = "0px"
             let spinner = document.createElement('div')
             spinner.className = "spinner"
             spinner.style.cssText = "margin:0 0 0 5px"
@@ -51,7 +54,8 @@ export class JavLibrary extends Platform {
                 result = new ImportantError(error)
             }
             spinner.remove()
-            super.handleApplyPluginResult(result, a, btn)
+            super.handleApplyPluginResult(result, a, btn, spinner)
+
         })
     }
 }
