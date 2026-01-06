@@ -52,6 +52,7 @@ export class Jable extends Platform {
             try {
                 result = await provider.getUrl(this.videoInfo.id)
             } catch (error) {
+                console.error(error);
                 result = new ImportantError(error)
             }
             spinner.remove()

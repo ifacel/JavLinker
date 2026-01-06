@@ -1,5 +1,5 @@
 import { Provider } from "../provider.js"
-import { Ok, Error } from "../../tools/result.js"
+import { Ok, Error, ImportantError } from "../../tools/result.js"
 import { Network } from "../../tools/network.js"
 
 export class JapanHubProvider extends Provider {
@@ -13,13 +13,12 @@ export class JapanHubProvider extends Provider {
      */
     async getUrl(id) {
         let url = this.searchUrl + id
-        let response
-        try {
-            response = (await Network.fetch(url)).text
-        } catch (error) {
-            return new Error("网络错误：" + error.message)
+        let result = await this.fetch(url)
+        if (!(result instanceof Ok)) {
+            return result
         }
-        let document = this.parser.parseFromString(response, "text/html")
+        let responseData = result.data
+        let document = this.parser.parseFromString(responseData, "text/html")
         let items = document.querySelectorAll(".well-sm")
         let item
         for (let t of items) {
@@ -30,7 +29,6 @@ export class JapanHubProvider extends Provider {
             }
         }
         if (!item) {
-            console.info(this.name + "：没有找到" + id);
             return new Error("该平台找不到" + id)
         }
         let href = item.querySelector("a").href

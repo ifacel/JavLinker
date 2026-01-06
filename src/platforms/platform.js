@@ -10,51 +10,57 @@ export class Platform {
             }
         })
     }
-    handleApplyPluginResult(result, a, btn) {
-        if (result instanceof Ok) {
-            btn.disabled = false
-            if (this.useNewTab) {
-                btn.addEventListener("click", async () => {
-                    Tabs.newTab(result.data)
-                })
-            } else {
-                a.href = result.data
-            }
-        } else if (result instanceof Error) {
-            btn.style.color = "red"
-            let tooltip = document.createElement("span")
-            tooltip.innerText = result.message
-            tooltip.className = "tooltipJav"
-            btn.appendChild(tooltip)
-            this.setHoverAction(btn, () => {
-                tooltip.style.display = "block"
-            }, () => {
-                tooltip.style.display = "none"
-            })
-        } else if (result instanceof ImportantError) {
-            btn.dataset.state = "error"
-            let tooltip = document.createElement("span")
-            tooltip.innerText = result.message
-            tooltip.className = "tooltipJav"
-            btn.appendChild(tooltip)
-            tooltip.dataset.state = "error"
-            this.setHoverAction(btn, () => {
-                tooltip.style.display = "block"
-            }, () => {
-                tooltip.style.display = "none"
-            })
-            if (result.action) {
+    handleApplyPluginResult(result, a, btn) {        
+        switch (true) {
+            case result instanceof Ok: {
                 btn.disabled = false
-                btn.addEventListener("click", () => { result.action() })
+                if (this.useNewTab) {
+                    btn.addEventListener("click", async () => {
+                        Tabs.newTab(result.data)
+                    })
+                } else {
+                    a.href = result.data
+                }
+                break;
             }
-        }
-        else {
-            btn.title = ("发生错误：" + result)
-            this.setHoverAction(btn, () => {
-                alert(result)
-            })
+            case result instanceof Error: {
+                btn.style.color = "red"
+                let tooltip = document.createElement("span")
+                tooltip.innerText = result.message
+                tooltip.className = "tooltipJav"
+                btn.appendChild(tooltip)
+                this.setHoverAction(btn, () => {
+                    tooltip.style.display = "block"
+                }, () => {
+                    tooltip.style.display = "none"
+                })
+                break;
+            }
+            case result instanceof ImportantError: {
+                btn.dataset.state = "error"
+                let tooltip = document.createElement("span")
+                tooltip.innerText = result.message
+                tooltip.className = "tooltipJav"
+                btn.appendChild(tooltip)
+                tooltip.dataset.state = "error"
+                this.setHoverAction(btn, () => {
+                    tooltip.style.display = "block"
+                }, () => {
+                    tooltip.style.display = "none"
+                })
+                if (result.action) {
+                    btn.disabled = false
+                    btn.addEventListener("click", () => { result.action() })
+                }
+                break;
+            }
+
+            default: {
+                btn.title = ("发生错误：" + result)
+            }
         }
     }
+
 
     applyPlugin() { }
 
@@ -74,7 +80,9 @@ export class Platform {
 
         btn.addEventListener('mouseleave', () => {
             clearTimeout(pressTimer);
-            onRevoke()
+            if (onRevoke) {
+                onRevoke()
+            }
         })
 
         // 触摸事件
@@ -84,7 +92,9 @@ export class Platform {
 
         btn.addEventListener('touchend', () => {
             clearTimeout(pressTimer);
-            onRevoke()
+            if (onRevoke) {
+                onRevoke()
+            }
         });
 
     }

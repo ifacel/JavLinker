@@ -1,6 +1,5 @@
 import { Provider } from "../provider.js"
 import { Ok, Error } from "../../tools/result.js"
-import { Network } from "../../tools/network.js"
 
 export class NjavProvider extends Provider {
     name = "njav"
@@ -16,13 +15,12 @@ export class NjavProvider extends Provider {
     async getUrl(id) {
         let urls = this.getSearchUrl(id)
         let url = urls[0]
-        let response
-        try {
-            response = (await Network.fetch(url)).text
-        } catch (error) {
-            return new Error("网络错误：" + error.message)
+        let result = await this.fetch(url)
+        if (!(result instanceof Ok)) {
+            return result
         }
-        let document = this.parser.parseFromString(response, "text/html")
+        let responseData = result.data
+        let document = this.parser.parseFromString(responseData, "text/html")
         let details = document.querySelectorAll(".detail")
         let href
         for (let d of details) {
@@ -35,7 +33,6 @@ export class NjavProvider extends Provider {
             }
         }
         if (!href) {
-            console.info(this.name + "：没有找到" + id);
             return new Error("该平台找不到" + id)
         }
         return new Ok(href)

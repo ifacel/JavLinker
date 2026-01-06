@@ -1,3 +1,5 @@
+import { Ok, Error, ImportantError } from "../tools/result.js"
+import { Network } from "../tools/network.js"
 let parser = new DOMParser()
 
 export class Provider {
@@ -23,6 +25,22 @@ export class Provider {
             }
         }
         return new Error("该平台找不到" + id)
+    }
+
+    async fetch(url) {
+        try {
+            let response = (await Network.fetch(url))
+            switch (true) {
+                case response instanceof Ok:
+                    return response
+                case response instanceof Error:
+                    return new ImportantError(response.message)
+                default:
+                    return new ImportantError("未知错误：" + responseData.message)
+            }
+        } catch (error) {
+            return new ImportantError("网络错误：" + error.message)
+        }
     }
 }
 

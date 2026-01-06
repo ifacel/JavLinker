@@ -1,5 +1,5 @@
 import browserHolder from "./browser_init.js"
-
+import { Ok, Error } from "./result.js"
 export class NetworkImpl {
     /**
      * 
@@ -14,13 +14,13 @@ export class NetworkImpl {
                     url,
                     requestInit
                 },
-                response => {
-                    resolve(new FetchResult(response.status, response.text, response.error))
-                }
+                response =>
+                    response.status == 200 ? resolve(new Ok(response.text)) : resolve(new Error("status: " + response.status))
             )
         })
     }
 }
+
 
 export class FetchResult {
     status
