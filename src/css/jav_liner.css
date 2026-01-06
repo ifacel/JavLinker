@@ -17,6 +17,15 @@
     margin: 0px 5px 5px 0px;
 }
 
+.btnJav[data-state="error"]{
+    background-color: rgb(230, 230, 230);
+    border-radius: 20px;
+    border-radius: 20px;
+    color: purple;
+    border: none;
+    cursor: auto;
+}
+
 .tooltipJav {
     display: none;
     position: absolute;
@@ -33,6 +42,9 @@
     width: max-content;
     left: 50%;
     transform: translate(-50%, -210%);  
+}
+.tooltipJav[data-state="error"] {
+    background-color: purple;
 }
 
 .spinner {

@@ -16,10 +16,12 @@ export class Error extends Result {
     }
 }
 
-export class UnknownError extends Result{
+export class ImportantError extends Result{
     message
-    constructor(message){
+    action
+    constructor(message,action){
         super()
         this.message = message
+        this.action = action
     }
 }

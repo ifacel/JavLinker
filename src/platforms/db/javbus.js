@@ -1,6 +1,6 @@
 import { Platform } from "../platform.js"
 import { playerProviders } from "../../providers.js"
-import { UnknownError } from "../../tools/result.js";
+import { ImportantError } from "../../tools/result.js";
 export class JavBus extends Platform {
     hosts = ["www.javbus.com", "www.seejav.me"]
     infoElement = document.querySelector('.info');
@@ -42,7 +42,7 @@ export class JavBus extends Platform {
             try {
                 result = await provider.getUrl(this.videoInfo.id)
             } catch (error) {
-                result = new UnknownError(error)
+                result = new ImportantError(error)
             }
             spinner.remove()
             super.handleApplyPluginResult(result, a, btn)

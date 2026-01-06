@@ -1,6 +1,6 @@
 import { Platform } from "../platform.js"
 import { playerProviders } from "../../providers.js"
-import { UnknownError } from "../../tools/result.js";
+import { ImportantError } from "../../tools/result.js";
 export class JavLibrary extends Platform {
     hosts = ["www.javlibrary.com", "www.y78k.com"]
     infoElement = document.querySelector('#video_info');
@@ -30,7 +30,7 @@ export class JavLibrary extends Platform {
         let btnsContainer = document.createElement('p');
 
         value.appendChild(btnsContainer);
-        dbProviers.forEach(async (provider, index) => {
+        playerProviders.forEach(async (provider, index) => {
             let a = document.createElement('a');
             a.target = "_blank"
             let btn = document.createElement('button');
@@ -48,7 +48,7 @@ export class JavLibrary extends Platform {
             try {
                 result = await provider.getUrl(this.videoInfo.id)
             } catch (error) {
-                result = new UnknownError(error)
+                result = new ImportantError(error)
             }
             spinner.remove()
             super.handleApplyPluginResult(result, a, btn)

@@ -9,12 +9,12 @@
     "build:firefox": "vite build --mode firefox",
     "prebuild:chrome": "node build_scripts/prebuild.js",
     "prebuild:firefox": "node build_scripts/prebuild.js",
-    "postbuild:firefox": "node build_scripts/postbuild.js",
     "postbuild:chrome": "node build_scripts/postbuild.js",
+    "postbuild:firefox": "node build_scripts/postbuild.js",
     "build": "npm run build:chrome && npm run build:firefox"
   },
   "devDependencies": {
-    "crx": "^5.0.1",
+    "@crxjs/vite-plugin": "^2.3.0",
     "web-ext": "^9.2.0"
   }
 }

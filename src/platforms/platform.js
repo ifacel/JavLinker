@@ -1,5 +1,5 @@
 import { Tabs } from "../tools/tabs.js"
-import { Ok, Error, UnknownError } from "../tools/result.js"
+import { Ok, Error, ImportantError } from "../tools/result.js"
 import { Setting } from "../tools/setting.js"
 export class Platform {
     useNewTab = false
@@ -26,27 +26,31 @@ export class Platform {
             tooltip.innerText = result.message
             tooltip.className = "tooltipJav"
             btn.appendChild(tooltip)
-            this.setLongClick(btn, () => {
+            this.setHoverAction(btn, () => {
                 tooltip.style.display = "block"
             }, () => {
                 tooltip.style.display = "none"
             })
-        } else if (result instanceof UnknownError) {
-            btn.style.color = "purple"
+        } else if (result instanceof ImportantError) {
+            btn.dataset.state = "error"
             let tooltip = document.createElement("span")
-            tooltip.innerText = "发生未知错误：" + result.message
+            tooltip.innerText = result.message
             tooltip.className = "tooltipJav"
             btn.appendChild(tooltip)
-            this.setLongClick(btn, () => {
+            tooltip.dataset.state = "error"
+            this.setHoverAction(btn, () => {
                 tooltip.style.display = "block"
             }, () => {
                 tooltip.style.display = "none"
             })
-
+            if (result.action) {
+                btn.disabled = false
+                btn.addEventListener("click", () => { result.action() })
+            }
         }
         else {
             btn.title = ("发生错误：" + result)
-            this.setLongClick(btn, () => {
+            this.setHoverAction(btn, () => {
                 alert(result)
             })
         }
@@ -62,8 +66,7 @@ export class Platform {
         this.applyPlugin();
     }
 
-    setLongClick(btn, onInvoke, onRevoke) {
-
+    setHoverAction(btn, onInvoke, onRevoke) {
         let pressTimer
         btn.addEventListener('mouseenter', () => {
             onInvoke();

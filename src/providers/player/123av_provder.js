@@ -1,5 +1,5 @@
 import { Provider } from "../provider.js"
-import { Ok, Error } from "../../tools/result.js"
+import { Ok, Error, ImportantError } from "../../tools/result.js"
 import { Network } from "../../tools/network.js"
 export class P123avProvider extends Provider {
     name = "123av"

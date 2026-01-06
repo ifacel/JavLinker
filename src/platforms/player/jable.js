@@ -1,6 +1,6 @@
 import { Platform } from "../platform.js"
 import { dbProviers } from "../../providers.js"
-import { UnknownError } from "../../tools/result.js"
+import { ImportantError } from "../../tools/result.js"
 export class Jable extends Platform {
     hosts = ["jable.tv"]
     videoInfo = {};
@@ -52,7 +52,7 @@ export class Jable extends Platform {
             try {
                 result = await provider.getUrl(this.videoInfo.id)
             } catch (error) {
-                result = new UnknownError(error)
+                result = new ImportantError(error)
             }
             spinner.remove()
             super.handleApplyPluginResult(result, a, btn)
