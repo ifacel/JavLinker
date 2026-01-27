@@ -24,7 +24,7 @@ export class P123avProvider extends Provider {
         let thumbs = document.querySelectorAll(".thumb")
         let thumb
         for (let t of thumbs) {
-            if (t.querySelector('a').title.indexOf(id) != -1) {
+            if (t.querySelector('a').title.toLowerCase().indexOf(id.toLowerCase()) != -1) {
                 thumb = t
                 break
             }
@@ -35,8 +35,8 @@ export class P123avProvider extends Provider {
         let href = thumb.querySelector('a').href
 
         let page = await this.fetch(url)
-        if (!(page instanceof Ok)) {
-            return page
+        if (page instanceof Ok) {
+            return new Ok(href)
         }
         page = page.data
         //可能需要二次跳转

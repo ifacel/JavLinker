@@ -1,5 +1,5 @@
 import { Provider } from "../provider.js"
-import { Ok, Error } from "../../tools/result.js"
+import { Ok, Error, ImportantError } from "../../tools/result.js"
 import { Network } from "../../tools/network.js"
 
 export class JavdbProvider extends Provider {
@@ -21,6 +21,14 @@ export class JavdbProvider extends Provider {
         }
         response = result.data
         let document = this.parser.parseFromString(response, "text/html")
+
+        if (!document.querySelector(".container")) {
+            let body = document.querySelector("body")
+            let scripts = body.querySelectorAll("script")
+            scripts.forEach(el=>el.remove())
+            return new ImportantError(body.innerText)
+        }
+
         if (!document.querySelector('base')) {
             const baseElement = document.createElement('base');
             baseElement.href = this.baseUrl;

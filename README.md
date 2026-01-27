@@ -23,5 +23,8 @@
 Platform：运行本插件的平台
 Provider：提供数据源的网站
 
-使用vite打包：
-  npm run build
+使用vite：
+  调试：
+    npm run dev:chrome
+  打包：
+    npm run build
