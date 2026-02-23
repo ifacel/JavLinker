@@ -1,8 +1,6 @@
 import { Ok, Error, Result } from "./result.js"
 import browserHolder from "./browser_init.js"
 export class StorageImpl {
-    static KEY_OPEN_IN_BACKEND = 'openInBackend'
-    static KEY_USE_NEW_TAB = 'useNewTab'
     browser
     constructor() {
         if (typeof browserHolder !== "undefined") {

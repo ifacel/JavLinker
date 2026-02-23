@@ -1,6 +1,5 @@
 import { Provider } from "../provider.js"
-import { Ok, Error } from "../../tools/result.js"
-import { Cookie } from "../../tools/cookies.js"
+import { Ok, Error,ImportantError } from "../../tools/result.js"
 export class SupJavProvider extends Provider {
     name = "SupJav"
     enable = true
@@ -13,12 +12,19 @@ export class SupJavProvider extends Provider {
     async getUrl(id) {
         let url = this.searchUrl + id
         let result = await this.fetch(url)
-        if (!(result instanceof Ok)) {
-            return result
-        }
-        
         let responseData = result.data
         let document = this.parser.parseFromString(responseData, "text/html")
+
+        if (!(result instanceof Ok)) {
+            let errorTextElement = document.querySelector("#challenge-error-text")
+            if (!errorTextElement) {
+                return new ImportantError("请手动访问一次SubJav，通过验证。")
+            }else{
+                return result
+            }
+        }
+
+
         let items = document.querySelectorAll(".posts .post")
         let item
         for (let t of items) {
