@@ -4,6 +4,7 @@ import { NjavProvider } from "./providers/player/njav_provider.js"
 import { JapanHubProvider } from "./providers/player/japanhub_provider.js"
 import { JavdbProvider } from "./providers/db/javdb_provider.js"
 import { JavHdPornProvider } from "./providers/player/jav_hd_porn.js"
+import { SupJavProvider } from "./providers/player/supjav_provider.js"
 
 export const playerProviders = [
     new JableProvider(),
@@ -11,6 +12,7 @@ export const playerProviders = [
     new NjavProvider(),
     new JapanHubProvider(),
     new JavHdPornProvider(),
+    new SupJavProvider(),
 ].filter(p => p.enable)
 
 export const dbProviers = [

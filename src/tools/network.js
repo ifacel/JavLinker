@@ -6,13 +6,13 @@ export class NetworkImpl {
      * @param {*} url 
      * @returns {Promise<FetchResult>}
      */
-    fetch(url, requestInit) {
+    fetch(url, data) {
         return new Promise((resolve, reject) => {
             browserHolder.runtime.sendMessage(
                 {
                     type: "fetch",
                     url,
-                    requestInit
+                    data
                 },
                 response =>
                     response.status == 200 ? resolve(new Ok(response.text)) : resolve(new Error("status: " + response.status))

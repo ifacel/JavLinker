@@ -27,9 +27,9 @@ export class Provider {
         return new Error("该平台找不到" + id)
     }
 
-    async fetch(url) {
+    async fetch(url,data) {
         try {
-            let response = (await Network.fetch(url))
+            let response = (await Network.fetch(url,data))
             switch (true) {
                 case response instanceof Ok:
                     return response

@@ -24,7 +24,7 @@
       ]
     }
   ],
-  "permissions": ["cookies", "storage", "tabs"],
+  "permissions": ["cookies", "storage", "tabs","webRequest","declarativeNetRequest","declarativeNetRequestFeedback"],
   "host_permissions": ["https://*/"],
   "background": {
     "scripts": ["src/background.js"],

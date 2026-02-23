@@ -1,14 +1,16 @@
-
+import "./tools/requerst_modifier.js"
 if (navigator.userAgent.includes('Chrome')) {
     var browserHolder = chrome
 } else if (navigator.userAgent.includes('Firefox')) {
     var browserHolder = browser
 }
+
+
 browserHolder.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         switch (request.type) {
             case "fetch":
-                fetch(request.url,request.requestInit)
+                fetch(request.url, request.data)
                     .then(async response => ({ status: response.status, text: await response.text() }))
                     .then(res => {
                         sendResponse({ status: res.status, text: res.text })
