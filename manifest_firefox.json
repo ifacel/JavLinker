@@ -8,7 +8,7 @@
   },
   "content_scripts": [
     {
-      "js": ["src/content.js"],
+      "js": ["src/content.ts"],
       "matches": [
         "https://www.javbus.com/*",
         "https://www.seejav.me/*",
@@ -27,7 +27,7 @@
   "permissions": ["cookies", "storage", "tabs","webRequest","declarativeNetRequest","declarativeNetRequestFeedback"],
   "host_permissions": ["https://*/"],
   "background": {
-    "scripts": ["src/background.js"],
+    "scripts": ["src/background.ts"],
     "type": "module"
   },
   "browser_specific_settings": {

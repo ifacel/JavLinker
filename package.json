@@ -3,18 +3,21 @@
     "dev": "npm run dev:chrome",
     "dev:chrome": "vite --mode chrome",
     "dev:firefox": "vite --mode firefox",
-    "predev:chrome": "node build_scripts/prebuild.js",
-    "predev:firefox": "node build_scripts/prebuild.js",
+    "predev:chrome": "tsx build_scripts/prebuild.ts",
+    "predev:firefox": "tsx build_scripts/prebuild.ts",
     "build:chrome": "vite build --mode chrome",
     "build:firefox": "vite build --mode firefox",
-    "prebuild:chrome": "node build_scripts/prebuild.js",
-    "prebuild:firefox": "node build_scripts/prebuild.js",
-    "postbuild:chrome": "node build_scripts/postbuild.js",
-    "postbuild:firefox": "node build_scripts/postbuild.js",
+    "prebuild:chrome": "tsx build_scripts/prebuild.ts",
+    "prebuild:firefox": "tsx build_scripts/prebuild.ts",
+    "postbuild:chrome": "tsx build_scripts/postbuild.ts",
+    "postbuild:firefox": "tsx build_scripts/postbuild.ts",
     "build": "npm run build:chrome && npm run build:firefox"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.3.0",
+    "@types/chrome": "^0.1.37",
+    "@types/firefox-webext-browser": "^143.0.0",
+    "tsx": "^4.21.0",
     "web-ext": "^9.2.0"
   }
 }
