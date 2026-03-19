@@ -27,14 +27,18 @@ export class JavdbActorProvider extends Provider {
         doc.head.appendChild(base)
         const itemsEle = doc.querySelectorAll("#actors .actor-box")
 
-        const items = Array.from(itemsEle).filter((t) => {
-            const a = t.querySelector("a") as HTMLElement | null
-            return a && a.title.toLowerCase().indexOf(info.name!.toLowerCase()) != -1
-        })
+        const items = Array.from(itemsEle)
+            .filter((t) => {
+                const a = t.querySelector("a") as HTMLElement | null
+                return a && a.title.toLowerCase().indexOf(info.name!.toLowerCase()) != -1
+            })
             .map((t) => {
                 const a = t.querySelector("a") as HTMLAnchorElement | null
                 if (!a) return null
-                return { name: a?.innerText.trim() || info.name, url: a.href || "" }
+                const name = a.innerText
+                    .trim()
+                    .replace(/\s+/g, " - ")
+                return { name: name || info.name, url: a.href || "" }
             })
             .filter((t) => t !== null) as { name: string, url: string }[]
         console.log(items);
