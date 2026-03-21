@@ -69,10 +69,6 @@ export abstract class Platform {
                 }, () => {
                     tooltip.style.display = "none"
                 })
-                if (impErrResult.action) {
-                    btn.disabled = false
-                    btn.addEventListener("click", () => { impErrResult.action!() })
-                }
                 break;
             }
 
@@ -90,7 +86,7 @@ export abstract class Platform {
         overlay.className = "overlayJav"
 
         const title = document.createElement('h3')
-        title.innerText = '请选择播放链接'
+        title.innerText = '请选择：'
         title.style = 'margin:0 0 15px 0; justify-self: center'
         dialog.appendChild(title)
 

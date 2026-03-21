@@ -2,6 +2,7 @@ import { Ok, Error as ResultError, ImportantError, Result } from "../models/resu
 import { Network } from "../tools/network.ts"
 import { Info } from "../models/info.ts"
 import { SearchData } from "../models/search_data.ts"
+import { NetworkError, NetworkOk, NetworkResult } from "../models/network_result.ts"
 
 const parser = new DOMParser()
 
@@ -17,19 +18,12 @@ export abstract class Provider {
      */
     abstract search(info: Info): Promise<Result<SearchData>>
 
-    async fetch(url: string, data?: any): Promise<Result> {
+    async fetch(url: string, data?: any): Promise<NetworkResult> {
         try {
             let response = await Network.fetch(url, data)
-            if (response instanceof Ok) {
-                return response
-            } else if (response instanceof ResultError) {
-                return new ImportantError(response.message)
-            } else {
-                // @ts-ignore
-                return new ImportantError("未知错误：" + (response?.message || 'unknown'))
-            }
+            return response
         } catch (error: any) {
-            return new ImportantError("网络错误：" + (error.message || String(error)))
+            return new NetworkError(-1, "network error: " + (error.message || String(error)), "")
         }
     }
 }

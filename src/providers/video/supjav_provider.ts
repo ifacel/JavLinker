@@ -2,6 +2,7 @@ import { Provider } from "../provider.ts"
 import { Ok, Error as ResultError, ImportantError, Result } from "../../models/result.ts"
 import { Info } from "../../models/info.ts"
 import { SearchData } from "../../models/search_data.ts"
+import { NetworkError } from "../../models/network_result.ts"
 
 export class SupJavProvider extends Provider {
     override name: string = "SupJav"
@@ -14,18 +15,21 @@ export class SupJavProvider extends Provider {
 
         let url = this.searchUrl + id
         let result = await this.fetch(url)
+        if (result instanceof NetworkError && result.code == 403) {
+            let document = this.parser.parseFromString(result.data, "text/html")
+            let challenge = document.querySelector("#challenge-error-text") as HTMLElement
+            if (challenge?.innerText.trim() == "Enable JavaScript and cookies to continue") {
+                result.message = `请访问一次${this.name}，通过验证。`
+                return result
+            }
+        }
+
         let responseData = (result instanceof Ok) ? (result.data as string) : ""
         if (!(result instanceof Ok)) {
             return result
         }
-
         responseData = result.data as string
         let document = this.parser.parseFromString(responseData, "text/html")
-
-        let challengeError = document.querySelector("#challenge-error-text")
-        if (challengeError) {
-            return new ImportantError("请手动访问一次SupJav，通过验证。")
-        }
 
         let itemsEle = document.querySelectorAll(".posts .post")
         const items = Array.from(itemsEle).filter((t) => {

@@ -1,23 +1,24 @@
 import browserHolder from "./browser_init.ts"
 import { Ok, Error as ResultError, Result } from "../models/result.ts"
+import { NetworkError, NetworkOk, NetworkResult } from "../models/network_result.ts"
 
 export class NetworkImpl {
     /**
      * 
      * @param {string} url 
      * @param {any} data
-     * @returns {Promise<Result>}
+     * @returns {Promise<Result<NetworkResult<string>>>}
      */
-    fetch(url: string, data?: any): Promise<Result> {
+    fetch(url: string, data?: any): Promise<NetworkResult> {
         return new Promise((resolve) => {
-            browserHolder.runtime.sendMessage(
+            chrome.runtime.sendMessage(
                 {
                     type: "fetch",
                     url,
                     data
                 },
                 (response: any) =>
-                    response.status == 200 ? resolve(new Ok(response.text)) : resolve(new ResultError("status: " + response.status))
+                    response.status == 200 ? resolve(new NetworkOk(response.status, response.text)) : resolve(new NetworkError(response.status, "status: " + response.status, response.text))
             )
         })
     }

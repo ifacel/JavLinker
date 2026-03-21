@@ -8,7 +8,7 @@ export class Ok<T> extends Result<T> {
   }
 }
 
-export class Error extends Result<any> {
+export class Error<T = any> extends Result<T> {
   message: string;
   constructor(message: string) {
     super();
@@ -16,12 +16,10 @@ export class Error extends Result<any> {
   }
 }
 
-export class ImportantError extends Result<any> {
+export class ImportantError<T = any> extends Result<T> {
   message: string;
-  action?: () => void;
-  constructor(message: string, action?: () => void) {
+  constructor(message: string) {
     super();
     this.message = message;
-    this.action = action;
   }
 }
