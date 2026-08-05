@@ -21,9 +21,7 @@ export class NjavProvider extends Provider {
         let result = await this.fetch(url)
         if (result instanceof NetworkError && result.code == 403) {
             let document = this.parser.parseFromString(result.data, "text/html")
-            let challenge = document.querySelector("#challenge-error-text") as HTMLElement
-            console.log(challenge);
-            
+            let challenge = document.querySelector("#challenge-error-text") as HTMLElement            
             if (challenge?.innerText.trim() == "Enable JavaScript and cookies to continue"){
                 result.message = `请访问一次${this.name}，通过验证。`
                 return result

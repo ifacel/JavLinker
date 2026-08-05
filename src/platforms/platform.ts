@@ -87,7 +87,7 @@ export abstract class Platform {
 
         const title = document.createElement('h3')
         title.innerText = '请选择：'
-        title.style = 'margin:0 0 15px 0; justify-self: center'
+        title.style = 'margin:0 0 15px 0; justify-self: center; color: #fff'
         dialog.appendChild(title)
 
         const list = document.createElement('div')
