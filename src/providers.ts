@@ -4,6 +4,7 @@ import { JapanHubProvider } from "./providers/video/japanhub_provider.ts"
 import { JavHdPornProvider } from "./providers/video/jav_hd_porn_provider.ts"
 import { NjavProvider } from "./providers/video/njav_provider.ts"
 import { SupJavProvider } from "./providers/video/supjav_provider.ts"
+import { Mf2607Provider } from "./providers/video/mf2607_provider.ts"
 
 import { JavdbProvider } from "./providers/db/javdb_provider.ts"
 import { Provider } from "./providers/provider.ts"
@@ -15,6 +16,7 @@ export const playerProviders: Provider[] = [
     new JavHdPornProvider(),
     new NjavProvider(),
     new SupJavProvider(),
+    new Mf2607Provider(),
 ].filter(p => p.enable)
 
 export const dbProviers: Provider[] = [

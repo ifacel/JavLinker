@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Jav Linker",
-  "description": "把Jav网站连接起来！",
-  "version": "1.0",
+  "description": "连接看片网站",
+  "version": "1.1",
   "action": {
     "default_popup": "src/popup/settings.html"
   },
@@ -20,6 +20,7 @@
         "https://japanhub.net/*",
         "https://jable.tv/*",
         "https://123av.com/*",
+        "https://mf2607.com/*",
         "https://www4.javhdporn.net/*"
       ]
     }
