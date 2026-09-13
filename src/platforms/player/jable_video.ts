@@ -62,7 +62,7 @@ export class JableVideo extends Platform {
       try {
         result = await provider.search(this.info);        
       } catch (error: any) {
-        result = new ImportantError(error.message || String(error));
+        result = error
       }
       spinner.remove();
       super.handleApplyPluginResult(result, a, btn);

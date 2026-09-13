@@ -1,5 +1,5 @@
 import { Provider } from "../provider.ts"
-import { Ok, Error as ResultError, ImportantError, Result } from "../../models/result.ts"
+import { Ok, Error as ResultError, ImportantError, Result, ActionError, ActionType } from "../../models/result.ts"
 import { Info } from "../../models/info.ts"
 import { SearchData } from "../../models/search_data.ts"
 import { NetworkError } from "../../models/network_result.ts"
@@ -20,7 +20,7 @@ export class SupJavProvider extends Provider {
             let challenge = document.querySelector("#challenge-error-text") as HTMLElement
             if (challenge?.innerText.trim() == "Enable JavaScript and cookies to continue") {
                 result.message = `请访问一次${this.name}，通过验证。`
-                return result
+                return new ActionError(result.message, ActionType.Link, "点击访问", url)
             }
         }
 

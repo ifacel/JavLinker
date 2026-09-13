@@ -1,5 +1,5 @@
 import { Tabs } from "../tools/tabs.ts"
-import { Ok, Error as ResultError, ImportantError, Result } from "../models/result.ts"
+import { Ok, Error, ImportantError, Result, ActionError, ActionType } from "../models/result.ts"
 import { Setting } from "../tools/setting.ts"
 import { SearchData } from "../models/search_data.ts"
 import { SearchItem } from "../models/search_item.ts"
@@ -42,9 +42,9 @@ export abstract class Platform {
                 }
                 break;
             }
-            case result instanceof ResultError: {
+            case result instanceof Error: {
                 btn.style.color = "red"
-                const errResult = result as ResultError
+                const errResult = result as Error
                 let tooltip = document.createElement("span")
                 tooltip.innerText = errResult.message
                 tooltip.className = "tooltipJav"
@@ -56,11 +56,32 @@ export abstract class Platform {
                 })
                 break;
             }
+
+            case result instanceof ActionError: {
+                btn.disabled = false
+                btn.dataset.state = "error"
+                let tooltip = document.createElement("span")
+                tooltip.innerText = result.message
+                tooltip.className = "tooltipJav"
+                btn.appendChild(tooltip)
+                tooltip.dataset.state = "error"
+                this.setHoverAction(btn, () => {
+                    tooltip.style.display = "block"
+                }, () => {
+                    tooltip.style.display = "none"
+                })
+                const actionErrResult = result as ActionError
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault()
+                    this.showActionDialog(actionErrResult)
+                })
+                break;
+            }
+
             case result instanceof ImportantError: {
                 btn.dataset.state = "error"
-                const impErrResult = result as ImportantError
                 let tooltip = document.createElement("span")
-                tooltip.innerText = impErrResult.message
+                tooltip.innerText = result.message
                 tooltip.className = "tooltipJav"
                 btn.appendChild(tooltip)
                 tooltip.dataset.state = "error"
@@ -93,9 +114,9 @@ export abstract class Platform {
         const list = document.createElement('div')
         items.forEach(item => {
             const a = document.createElement('a')
-            if(this.useNewTab) {
+            if (this.useNewTab) {
                 a.target = "_blank"
-            }else{
+            } else {
                 a.href = item.url
             }
             const btn = document.createElement('button')
@@ -122,6 +143,51 @@ export abstract class Platform {
         overlay.addEventListener('click', cleanup)
         document.body.appendChild(overlay)
         document.body.appendChild(dialog)
+    }
+
+    private showActionDialog(actionErrResult: ActionError) {
+        const dialog = document.createElement('div')
+        dialog.className = 'dialogJav'
+
+        const overlay = document.createElement('div')
+        overlay.className = "overlayJav"
+
+        const title = document.createElement('h3')
+        title.innerText = actionErrResult.message
+        title.style = 'margin:0 0 15px 0; justify-self: center; color: #fff'
+        dialog.appendChild(title)
+
+        const a = document.createElement('a')
+        const list = document.createElement('div')
+
+        switch (actionErrResult.actionType) {
+            case ActionType.Link:
+                a.target = "_blank"
+                const btn = document.createElement('button')
+                btn.innerText = actionErrResult.actionTooltip
+                btn.className = "btnJav"
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault()
+                    Tabs.newTab(actionErrResult.data)
+                    cleanup()
+                })
+                a.appendChild(btn)
+                list.appendChild(a)
+                break;
+
+            default:
+                break;
+        }
+        dialog.appendChild(list)
+        const cleanup = () => {
+            document.body.removeChild(dialog)
+            document.body.removeChild(overlay)
+        }
+
+        overlay.addEventListener('click', cleanup)
+        document.body.appendChild(overlay)
+        document.body.appendChild(dialog)
+
     }
 
     abstract applyPlugin(): void

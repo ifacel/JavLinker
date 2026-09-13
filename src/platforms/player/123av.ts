@@ -62,7 +62,7 @@ export class P123av extends Platform {
                 result = await provider.search(this.info)
             } catch (error: any) {
                 console.error(error);
-                result = new ImportantError(error.message || String(error))
+                result = error
             }
             spinner.remove()
             super.handleApplyPluginResult(result, a, btn)

@@ -1,4 +1,4 @@
-import { Ok, Error, ImportantError } from "./result";
+import { Ok, Error } from "./result";
 
 interface NetworkResult {
     code: number;
@@ -13,7 +13,7 @@ class NetworkOk extends Ok<string> implements NetworkResult {
     }
 }
 
-class NetworkError extends ImportantError<string> implements NetworkResult {
+class NetworkError extends Error<string> implements NetworkResult {
     code: number;
     message: string;
     data: string;
