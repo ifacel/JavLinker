@@ -5,6 +5,7 @@ import { JavHdPornProvider } from "./providers/video/jav_hd_porn_provider.ts"
 import { NjavProvider } from "./providers/video/njav_provider.ts"
 import { SupJavProvider } from "./providers/video/supjav_provider.ts"
 import { Mf2607Provider } from "./providers/video/mf2607_provider.ts"
+import { MissavProvider } from "./providers/video/missav.ts"
 
 import { JavdbProvider } from "./providers/db/javdb_provider.ts"
 import { Provider } from "./providers/provider.ts"
@@ -12,6 +13,7 @@ import { Provider } from "./providers/provider.ts"
 export const playerProviders: Provider[] = [
     new JableProvider(),
     new P123avProvider(),
+    new MissavProvider(),
     new JapanHubProvider(),
     new JavHdPornProvider(),
     new NjavProvider(),

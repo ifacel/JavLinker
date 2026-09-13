@@ -34,18 +34,13 @@ export class NjavProvider extends Provider {
 
         let document = this.parser.parseFromString(result.data, "text/html")
         let details = document.querySelectorAll(".detail")
-        console.log(details);
 
         const items = Array.from(details).filter((t) => {
             const a = t.querySelector("a") as HTMLAnchorElement | null
-            console.log(a);
-
             return a && a.href.toLowerCase().indexOf(id.toLowerCase()) != -1
         })
             .map((t) => {
                 const a = t.querySelector("a") as HTMLAnchorElement | null
-                console.log(a);
-
                 if (!a) return null
                 return { name: a?.innerText.trim() || id, url: a.href || "" }
             })

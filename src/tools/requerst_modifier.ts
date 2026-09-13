@@ -4,6 +4,7 @@ import browserHolder from "./browser_init.ts"
 
 const KEY_SUPJAV = "supjav"
 const KEY_NJAV = "njav"
+const KEY_MISSAV = "missav"
 
 interface KeptCookies {
     [key: string]: string | undefined
@@ -25,8 +26,14 @@ const list: ModifyItem[] = [
         host: "njav.com",
         key: KEY_NJAV,
         ruleId: 1002
+    },
+    {
+        host: "missav.ws",
+        key: KEY_MISSAV,
+        ruleId: 1003
     }
 ]
+const listenerMatchUrls = ["*://*.supjav.com/*", "*://*.njav.com/*", "*://*.missav.ws/*"]
 
 var keptCookies: KeptCookies = {}
 loadKeptCookies()
@@ -42,6 +49,11 @@ function loadKeptCookies() {
     Storage.get(KEY_NJAV).then(result => {
         if ((result instanceof Ok) && result.data) {
             keptCookies[KEY_NJAV] = result.data
+        }
+    })
+    Storage.get(KEY_MISSAV).then(result => {
+        if ((result instanceof Ok) && result.data) {
+            keptCookies[KEY_MISSAV] = result.data
         }
     })
 }
@@ -72,7 +84,7 @@ browserHolder.webRequest.onBeforeSendHeaders.addListener(
 
         return { requestHeaders: details.requestHeaders };
     },
-    { urls: ["*://*.supjav.com/*", "*://*.njav.com/*"] },
+    { urls: listenerMatchUrls },
     ["requestHeaders", "extraHeaders"]
 );
 

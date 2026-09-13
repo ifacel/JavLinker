@@ -26,8 +26,7 @@ export class Mf2607Provider extends Provider {
         const id = info.id
         if (!id) return new ResultError("ID为空")
 
-        let url = this.searchUrl + id +
-            "&tag=&free=&actor=&issuer=&is_vip=&subtitle=&recommend=&top=&type=&create_date=&create_month="
+        let url = this.searchUrl + id 
         let result = await this.fetch(url)
         if (!(result instanceof Ok)) {
             return result
