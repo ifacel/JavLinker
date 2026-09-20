@@ -1,4 +1,7 @@
 {
+  "name": "javlinker",
+  "version": "1.1",
+  "private": true,
   "scripts": {
     "dev": "npm run dev:chrome",
     "dev:chrome": "vite --mode chrome",
