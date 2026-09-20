@@ -1,5 +1,8 @@
 import { Info } from "../../models/info";
+import { NetworkError } from "../../models/network_result.ts";
 import {
+  ActionError,
+  ActionType,
   ImportantError,
   Ok,
   Result,
@@ -24,7 +27,9 @@ export class JavdbVideoProvider extends Provider {
     if (!info.id) return new ResultError("ID为空");
     const url = this.getSearchUrl(info);
     const result = await this.fetch(url);
-    if (!(result instanceof Ok)) return result;
+    if (result instanceof NetworkError) {
+      return new ActionError(`${result.code}:${result.message}`, ActionType.Link, "网络请求失败", url)
+    }
     const response = result.data as string;
     const doc = this.parser.parseFromString(response, "text/html");
 

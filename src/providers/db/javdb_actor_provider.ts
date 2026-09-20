@@ -1,8 +1,9 @@
 import { JavdbProvider } from "./javdb_provider.ts"
-import { Ok, Error as ResultError, Result } from "../../models/result.ts"
+import { Ok, Error as ResultError, Result, ActionError, ActionType } from "../../models/result.ts"
 import { Info } from "../../models/info.ts"
 import { Provider } from "../provider.ts"
 import { SearchData } from "../../models/search_data.ts"
+import { NetworkError } from "../../models/network_result.ts"
 
 export class JavdbActorProvider extends Provider {
     enable: boolean = true
@@ -19,7 +20,9 @@ export class JavdbActorProvider extends Provider {
         if (!info.name) return new ResultError("姓名为空")
         const url = this.getSearchUrl(info)
         const result = await this.fetch(url, info)
-        if (!(result instanceof Ok)) return result
+        if (result instanceof NetworkError) {
+            return new ActionError(`${result.code}:${result.message}`, ActionType.Link, "网络请求失败", url)
+        }
         const response = result.data as string;
         const doc = this.parser.parseFromString(response, "text/html");
         const base = document.createElement('base')
