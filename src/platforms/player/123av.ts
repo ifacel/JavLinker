@@ -14,8 +14,8 @@ export class P123av extends Platform {
 
     override getInfo(): boolean {
         // 使用正则表达式从URL中提取视频ID
-        const url = window.location.href;
-        const match = url.match(/\/v\/([^\/?#]+)/);
+        const url = window.location.href;        
+        const match = url.match(/\/v\/([^\/?#]+)/);        
         if (match && match[1]) {
             this.info.id = match[1];
             return true
@@ -25,21 +25,22 @@ export class P123av extends Platform {
     }
 
     override applyPlugin(): void {
-        let div = document.createElement('div');
-        div.setAttribute("class", "panel-block")
-        div.style.marginLeft = "7px"
-        
-        let value = document.createElement('span');
-        value.setAttribute("class", "value")
-        div.appendChild(value);
+        let raw = document.createElement('div');
+        raw.setAttribute("class", "watch__info-row")        
+        let dt = document.createElement('dt');
+        dt.innerText = "DB";
 
-        const infoElement = document.querySelector('.col .mt-3 .actions');
+        let dd = document.createElement('dd');
+        raw.appendChild(dt);
+        raw.appendChild(dd);
+
+        const infoElement = document.querySelector('.watch__info');
         if (!infoElement) return;
-        infoElement.appendChild(div);
+        infoElement.appendChild(raw);
 
         let btnsContainer = document.createElement('p');
-        btnsContainer.style.marginBottom = "0px"
-        value.appendChild(btnsContainer);
+        btnsContainer.style.margin = "0px"
+        dd.appendChild(btnsContainer);
 
         dbProviers.forEach(async (provider) => {
             let a = document.createElement('a');
