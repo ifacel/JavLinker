@@ -1,0 +1,9 @@
+allowBuilds:
+  esbuild: set this to true or false
+  spawn-sync: set this to true or false
+onlyBuiltDependencies:
+  - esbuild
+  - esbuild@0.25.12
+  - esbuild@0.28.2
+  - spawn-sync
+  - spawn-sync@1.0.15
