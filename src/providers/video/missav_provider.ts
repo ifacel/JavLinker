@@ -52,7 +52,7 @@ export class MissavProvider extends Provider {
       .map((t) => {
         const a = t.querySelector(".text-sm") as HTMLAnchorElement;
         if (!a) return null;
-        const item: SearchItem = { name: a.innerText?.trim() || id, url: a.href || "" };
+        const item: SearchItem = { name: a.innerText?.trim() || id, url: a.querySelector("a")?.href || "" };
         return item;
       })
       .filter((t) => t != null);
