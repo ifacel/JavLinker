@@ -78,7 +78,6 @@ browserHolder.webRequest.onBeforeSendHeaders.addListener(
                 })
                 keptCookies[item!.key] = cookie
                 Storage.set(item!.key, cookie)
-                console.log("设置" + item!.host + "的cookie " + cookie);
             }
         }
 

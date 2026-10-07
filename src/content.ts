@@ -7,7 +7,6 @@ if (p) {
 } else {
     p = playerPlatforms.find(it => it.match())
     if (p) {
-        console.info("player platform init")
         p.execute()
     }
 }
