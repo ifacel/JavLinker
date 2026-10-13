@@ -9,26 +9,15 @@
     {
       "js": ["src/content.ts"],
       "matches": [
-        "https://www.javbus.com/*",
-        "https://www.seejav.me/*",
-        "https://www.javlibrary.com/*",
-        "https://www.y78k.com/*",
-        "https://javdb.com/v/*",
-        "https://www.njav.com/*",
-        "https://supjav.com/*",
-        "https://japanhub.net/*",
-        "https://jable.tv/*",
-        "https://123av.com/*",
-        "https://mf2607.com/*",
-        "https://www4.javhdporn.net/*",
-        "https://missav.ws/*"
+        "<all_urls>"
       ]
     }
   ],
   "permissions": ["cookies", "storage", "tabs","webRequest","declarativeNetRequest","declarativeNetRequestFeedback"],
   "host_permissions": ["https://*/"],
   "background": {
-    "service_worker": "src/background.ts",
+    "scripts": ["src/background.js"],
+    "service_worker": "src/background.js",
     "type": "module"
   },
   "browser_specific_settings": {

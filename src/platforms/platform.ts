@@ -195,7 +195,8 @@ export abstract class Platform {
 
     execute(): void {
         if (!this.getInfo()) {
-            throw new ImportantError("获取info失败");
+            console.warn("获取info失败");
+            return;
         }
         this.applyPlugin();
     }

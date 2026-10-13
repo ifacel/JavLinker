@@ -4,6 +4,7 @@ import { Ok, Error as ResultError } from "../models/result.ts"
 window.onload = () => {
     const checkboxUseNewTab = document.getElementById('useNewTab') as HTMLInputElement
     const checkboxNewTabInBackend = document.getElementById('newTabInBackend') as HTMLInputElement
+    const checkboxSelectionSearch = document.getElementById('selectionSearchEnabled') as HTMLInputElement
 
     checkboxUseNewTab.addEventListener('change', async (event: Event) => {
         const target = event.target as HTMLInputElement
@@ -26,6 +27,15 @@ window.onload = () => {
         }
     })
 
+    checkboxSelectionSearch.addEventListener('change', async (event: Event) => {
+        const target = event.target as HTMLInputElement
+        let result = await Setting.setSelectionSearchEnabled(target.checked)
+        if (result instanceof ResultError) {
+            loadConfig()
+            alert(result.message)
+        }
+    })
+
     async function loadConfig() {
         let resultUseNewTab = await Setting.getUseNewTab()
         let useNewTabValue = false
@@ -39,6 +49,10 @@ window.onload = () => {
             checkboxNewTabInBackend.checked = resultOpenInBackend.data
         }
         checkboxNewTabInBackend.disabled = !useNewTabValue
+
+        let resultSelectionSearch = await Setting.getSelectionSearchEnabled()
+        // 未设置时默认开启
+        checkboxSelectionSearch.checked = resultSelectionSearch instanceof Ok ? resultSelectionSearch.data : true
     }
     loadConfig()
 }

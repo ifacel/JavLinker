@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import { crx } from '@crxjs/vite-plugin'
-import chrome_manifest from './manifest_chrome.json'
-import firefox_manifest from './manifest_firefox.json'
+import manifest from './manifest.json'
 import pkg from './package.json'
 
 export default defineConfig(({ mode }) => {
@@ -9,7 +8,7 @@ export default defineConfig(({ mode }) => {
 
     if (mode === 'firefox') {
         return {
-            plugins: [crx({ manifest: { ...firefox_manifest, version: pkg.version }, browser: 'firefox' })],
+            plugins: [crx({ manifest: { ...manifest, version: pkg.version }, browser: 'firefox' })],
             server: {
                 port: 5174,
                 strictPort: true,
@@ -26,7 +25,7 @@ export default defineConfig(({ mode }) => {
 
     // 默认为 chrome 配置，确保函数始终返回一个有效的 UserConfig 对象
     return {
-        plugins: [crx({ manifest: { ...chrome_manifest, version: pkg.version } })],
+        plugins: [crx({ manifest: { ...manifest, version: pkg.version } })],
         server: {
             port: 5173,
             strictPort: true,
